@@ -1,0 +1,6 @@
+<configuration>
+    <apolloVersion>SNAPSHOT-1.0.0</apolloVersion>
+    <mobDifficulty>HIGHEST</mobDifficulty>
+    <forceSpawnRegions>TRUE</forceSpawnRegions>
+    <useR>TRUE</useR>
+</configuration>
