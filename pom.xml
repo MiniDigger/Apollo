@@ -8,6 +8,13 @@
     <artifactId>apollo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <jdk.version>1.7</jdk.version>
+        <jodatime.version>2.5</jodatime.version>
+        <junit.version>4.11</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+    </properties>
+
     <repositories>
         <repository>
             <id>heroes-repo</id>
@@ -21,12 +28,14 @@
             <groupId>org.spongepowered</groupId>
             <artifactId>SpongeAPI</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -34,22 +43,77 @@
             <artifactId>rcaller</artifactId>
             <scope>system</scope>
             <version>1.0</version>
-            <systemPath>${basedir}\depends\rcaller-1.0.0.jar</systemPath>
+            <systemPath>${basedir}/depends/rcaller-1.0.0.jar</systemPath>
         </dependency>
 
         <dependency>
             <groupId>io.ll</groupId>
             <artifactId>splash</artifactId>
-            <scope>system</scope>
             <version>1.0</version>
-            <systemPath>${basedir}\depends\Splash.jar</systemPath>
+            <scope>system</scope>
+            <systemPath>${basedir}/depends/Splash.jar</systemPath>
         </dependency>
 
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xerces</artifactId>
             <version>2.4.0</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>ApolloAI</finalName>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>io.lordlambda.apollo.Apollo</mainClass>
+                            <classpathPrefix>depends/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <includeArtifactIds>rcaller</includeArtifactIds>
+                            <outputDirectory>${project.build.directory}/depends/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
 </project>

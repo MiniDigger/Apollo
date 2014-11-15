@@ -1,5 +1,6 @@
 package io.lordlambda.apollo.math;
 
+import io.lordlambda.apollo.Apollo;
 import io.lordlambda.apollo.world.types.threeD.CuboidRegion;
 import io.lordlambda.apollo.world.Region;
 import io.lordlambda.apollo.world.types.threeD.SphericalRegion;
@@ -7,6 +8,7 @@ import io.lordlambda.apollo.world.types.twoD.SquareRegion;
 import org.spongepowered.api.math.Vector2f;
 import org.spongepowered.api.math.Vector3f;
 import org.spongepowered.api.math.Vectors;
+import org.spongepowered.api.world.World;
 
 import java.util.List;
 
@@ -98,6 +100,7 @@ public class VectorMath {
     public static Vector2f vector3ToVector2(Vector3f vec) {
         double y = vec.getY();
 
+        //TODO: This doesn't techincally work, I need to get the edge of the world somehow.
         double xDif = (vec.getX() - vec.getFloorX());
         double zDif = (vec.getZ() - vec.getFloorZ());
 
