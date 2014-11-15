@@ -3,6 +3,7 @@ package io.lordlambda.apollo.math;
 import io.lordlambda.apollo.world.types.threeD.CuboidRegion;
 import io.lordlambda.apollo.world.Region;
 import io.lordlambda.apollo.world.types.threeD.SphericalRegion;
+import io.lordlambda.apollo.world.types.twoD.SquareRegion;
 import org.spongepowered.api.math.Vector2f;
 import org.spongepowered.api.math.Vector3f;
 import org.spongepowered.api.math.Vectors;
@@ -48,7 +49,7 @@ public class VectorMath {
             float queryY = point.getY();
             float queryZ = point.getZ();
 
-            return ((queryX > minX) && (queryX < maxX) && (queryY > minY) && (queryY < maxY) && (queryZ > minZ) && (queryZ < maxZ));
+            return ((queryX >= minX) && (queryX <= maxX) && (queryY >= minY) && (queryY <= maxY) && (queryZ >= minZ) && (queryZ <= maxZ));
         }else if(r instanceof SphericalRegion) {
 
         }
@@ -65,6 +66,20 @@ public class VectorMath {
      *  If the 2d point is in the region
      */
     public static boolean vector2fInBounds(Region r, Vector2f point) {
+        if(r instanceof SquareRegion) {
+            SquareRegion sr = (SquareRegion) r;
+
+            float minX = sr.getXY().getX();
+            float minY = sr.getXY().getY();
+
+            float maxX = Integer.parseInt((String) sr.getTagData("WIDTH").toArray()[0]);
+            float maxY = Integer.parseInt((String) sr.getTagData("HEIGHT").toArray()[0]);
+
+            float queryX = point.getX();
+            float queryY = point.getY();
+
+            return (queryX >= minX && queryX <= maxX && queryY <= minY && queryY >= maxY);
+        }
         return false;
     }
 
@@ -102,4 +117,5 @@ public class VectorMath {
 
         return Vectors.create2f((float) xCoord, (float) y);
     }
+
 }
