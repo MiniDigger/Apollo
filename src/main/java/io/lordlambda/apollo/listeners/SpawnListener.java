@@ -7,7 +7,6 @@ import io.lordlambda.apollo.world.types.Region2D;
 import io.lordlambda.apollo.world.types.Region3D;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.entity.EntitySpawnEvent;
 import org.spongepowered.api.math.Vector3d;
 import org.spongepowered.api.math.Vector3f;
